@@ -11,7 +11,7 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 
 /**
- *
+ * Multiplayer game connection protocol for the server.
  * @author Mitchell
  */
 class ServerProtocol implements Runnable {
@@ -21,6 +21,12 @@ class ServerProtocol implements Runnable {
     private final ObjectOutputStream outToClient;
     private final EventQueue q;
     
+    /**
+     * Constructs the server protocol taking in a socket and Event Queue. 
+     * @param socket
+     * @param q
+     * @throws IOException 
+     */
     public ServerProtocol(Socket socket, EventQueue q) throws IOException {
         clientConnection = socket;
         this.q = q;
