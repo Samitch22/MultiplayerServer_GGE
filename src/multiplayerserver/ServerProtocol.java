@@ -5,10 +5,12 @@
  */
 package multiplayerserver;
 
+import greatestgameever.Lobby;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import model.Player;
 
 /**
  * Multiplayer game connection protocol for the server.
@@ -20,6 +22,9 @@ class ServerProtocol implements Runnable {
     private final ObjectInputStream inFromClient;
     private final ObjectOutputStream outToClient;
     private final EventQueue q;
+    private       Lobby lobby;
+    private       Player player;
+    private       Player opponent;
     
     /**
      * Constructs the server protocol taking in a socket and Event Queue. 
@@ -41,7 +46,7 @@ class ServerProtocol implements Runnable {
             
             in = inFromClient.readObject();
             System.out.println("In from client: " + in.toString());
-            
+            //outToClient.writeObject(this.lobby.getPlayerBoard(null));
             inFromClient.close();
             outToClient.close();
             clientConnection.close();
@@ -52,5 +57,14 @@ class ServerProtocol implements Runnable {
             System.out.println("Class not found: " + ex.getMessage());
         }
     }
+
+    /**
+     * Sets the lobby for this player's connection.
+     * @param lobby 
+     */
+    public void setLobby(Lobby lobby) {
+        this.lobby = lobby;
+    }
+    
     
 }
