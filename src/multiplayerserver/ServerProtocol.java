@@ -18,6 +18,7 @@ import model.Player;
  */
 class ServerProtocol implements Runnable {
 
+    private static final Character QUIT = 'Q';
     private final Socket clientConnection;
     private final ObjectInputStream inFromClient;
     private final ObjectOutputStream outToClient;
@@ -41,23 +42,27 @@ class ServerProtocol implements Runnable {
 
     @Override
     public void run() {
-        try {
-            Object in;
-            
-            in = inFromClient.readObject();
-            System.out.println("In from client: " + in.toString());
-            //outToClient.writeObject(this.lobby.getPlayerBoard(null));
-            inFromClient.close();
-            outToClient.close();
-            clientConnection.close();
-            System.out.println("Client disconnected.");
-        } catch (IOException ex) {
-            System.out.println("Unexpected Exception: " + ex.getMessage());
-        } catch (ClassNotFoundException ex) {
-            System.out.println("Class not found: " + ex.getMessage());
-        }
+        //try {
+//            Object in;
+//            
+//            in = inFromClient.readObject();
+//            System.out.println("In from client: " + in.toString());
+//            //outToClient.writeObject(this.lobby.getPlayerBoard(null));
+//            disconnect();
+//            System.out.println("Client disconnected.");
+        //} catch (IOException ex) {
+           // System.out.println("Unexpected Exception: " + ex.getMessage());
+        //} catch (ClassNotFoundException ex) {
+           // System.out.println("Class not found: " + ex.getMessage());
+        //}
     }
 
+    public void sendBoard() throws IOException {
+        //outToClient.writeObject(lobby.getPlayerBoard(player));
+        outToClient.writeObject(new Player());
+    }
+    
+    
     /**
      * Sets the lobby for this player's connection.
      * @param lobby 
@@ -65,6 +70,48 @@ class ServerProtocol implements Runnable {
     public void setLobby(Lobby lobby) {
         this.lobby = lobby;
     }
+
+    /**
+     * Gets the player for this server protocol.
+     * @return 
+     */
+    public Player getPlayer() {
+        return player;
+    }
+
+    /**
+     * Sets the player for this server protocol.
+     * @param player 
+     */
+    public void setPlayer(Player player) {
+        this.player = player;
+    }
+
+    /**
+     * Gets the opponent for this server protocol.
+     * @return 
+     */
+    public Player getOpponent() {
+        return opponent;
+    }
+
+    /**
+     * Sets the opponent for this server protocol.
+     * @param opponent 
+     */
+    public void setOpponent(Player opponent) {
+        this.opponent = opponent;
+    }
     
+    /**
+     * Disconnects the client from the server.
+     * @throws IOException 
+     */
+    public void disconnect() throws IOException {
+        inFromClient.close();
+        outToClient.close();
+        clientConnection.close();
+        System.out.println("Client disconnected.");
+    }
     
 }
