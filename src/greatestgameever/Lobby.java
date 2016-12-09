@@ -6,6 +6,7 @@
 package greatestgameever;
 
 import java.io.IOException;
+import java.io.Serializable;
 import model.Board;
 import model.Player;
 
@@ -13,7 +14,7 @@ import model.Player;
  * A game lobby for players playing a multiplayer match.
  * @author Mitchell
  */
-public class Lobby {
+public class Lobby implements Serializable {
     
     private Player player1;
     private Player player2;
