@@ -35,7 +35,9 @@ public class Lobby {
      */
     public Lobby(Player player1, Player player2) throws IOException {
         this.player1 = player1;
+        this.player1.setScore(player1.getScore());
         this.player2 = player2;
+        this.player2.setScore(player2.getScore());
         this.board = createBoard();
     }
     
@@ -80,6 +82,7 @@ public class Lobby {
     public Board getPlayerBoard(Player player) throws IOException {
         Board playerBoard = new Board(this.board);
         playerBoard.setPlayer(player);
+        playerBoard.getWordBank().setScore(player.getScore());
         playerBoard.setBoard(this.board.getBoard());
         playerBoard.setTargetKeys(this.board.getTargetKeys());
         playerBoard.setWordBank(this.board.getWordBank());
@@ -95,8 +98,6 @@ public class Lobby {
     private Board createBoard() throws IOException {
         Board b = new Board(new Player());
         b.setup();
-        
-        
         return b;
     }
 }
