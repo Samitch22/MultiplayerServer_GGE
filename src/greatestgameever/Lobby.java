@@ -80,6 +80,10 @@ public class Lobby {
     public Board getPlayerBoard(Player player) throws IOException {
         Board playerBoard = new Board(this.board);
         playerBoard.setPlayer(player);
+        playerBoard.setBoard(this.board.getBoard());
+        playerBoard.setTargetKeys(this.board.getTargetKeys());
+        playerBoard.setWordBank(this.board.getWordBank());
+        playerBoard.setWordKeys(this.board.getWordKeys());
         return playerBoard;
     }
     
@@ -90,6 +94,9 @@ public class Lobby {
      */
     private Board createBoard() throws IOException {
         Board b = new Board(new Player());
+        b.setup();
+        
+        
         return b;
     }
 }
