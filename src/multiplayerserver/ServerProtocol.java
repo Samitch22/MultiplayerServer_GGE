@@ -42,25 +42,12 @@ class ServerProtocol implements Runnable {
 
     @Override
     public void run() {
-        //try {
-//            Object in;
-//            
-//            in = inFromClient.readObject();
-//            System.out.println("In from client: " + in.toString());
-//            //outToClient.writeObject(this.lobby.getPlayerBoard(null));
-//            disconnect();
-//            System.out.println("Client disconnected.");
-        //} catch (IOException ex) {
-           // System.out.println("Unexpected Exception: " + ex.getMessage());
-        //} catch (ClassNotFoundException ex) {
-           // System.out.println("Class not found: " + ex.getMessage());
-        //}
+        
     }
 
     public void sendBoard() throws IOException {
         outToClient.writeObject(lobby.getPlayerBoard(player));
         System.out.println("Sent board to players.");
-        //outToClient.writeObject(new Player());
     }
     
     
